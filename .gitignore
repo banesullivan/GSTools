@@ -108,3 +108,4 @@ info/
 
 # Cython generated C code
 *.c
+*.cpp
