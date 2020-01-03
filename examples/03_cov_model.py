@@ -3,8 +3,8 @@ import numpy as np
 
 # use CovModel as the base-class
 class Gau(CovModel):
-    def correlation(self, r):
-        return np.exp(-(r / self.len_scale) ** 2)
+    def cor(self, h):
+        return np.exp(-h ** 2)
 
 
 model = Gau(dim=2, var=2.0, len_scale=10)
@@ -58,8 +58,8 @@ class Stab(CovModel):
     def default_opt_arg(self):
         return {"alpha": 1.5}
 
-    def correlation(self, r):
-        return np.exp(-(r / self.len_scale) ** self.alpha)
+    def cor(self, h):
+        return np.exp(-h ** self.alpha)
 
 
 model1 = Stab(dim=2, var=2.0, len_scale=10)
@@ -78,4 +78,5 @@ results, pcov = model.fit_variogram(x, y, nugget=False)
 print(results)
 
 ax = model.plot()
-ax.scatter(x, y, color="k")
+ax.scatter(x, y, color="k", label="estimated variogram")
+ax.legend()
